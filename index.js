@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const dbConnecting = require('./config/connection');
+const { viewAllDepartments, viewAllRoles } = require('./views/viewEntity'); // Import viewAllRoles function
 
 // Function to display the menu
 function displayMenu() {
@@ -36,7 +36,8 @@ function displayMenu() {
         switch (answers.action) {
             case 'View Departments':
                 return viewAllDepartments();
-            
+            case 'View Roles': // Case for viewing roles
+                return viewAllRoles(); // Call viewAllRoles function
             case 'Exit':
                 console.log('Exiting...');
                 process.exit(0);
@@ -45,22 +46,6 @@ function displayMenu() {
                 break;
         }
     }).catch(error => console.error('Error:', error));
-}
-
-// Function to view all departments
-function viewAllDepartments() {
-    return new Promise((resolve, reject) => {
-        dbConnecting.query('SELECT * FROM department', (error, results) => {
-            if (error) {
-                reject(error);
-            } else {
-                console.log('Departments:');
-                results.forEach(department =>
-                    console.log(`ID:${department.department_id}, Name: ${department.name}`));
-                resolve();
-            }
-        });
-    });
 }
 
 
@@ -72,14 +57,6 @@ function main() {
 
 // Start the program
 main();
-
-
-
-
-
-
-
-
 
 
 
