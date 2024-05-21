@@ -6,13 +6,13 @@ USE employee_management_system;
 -- -- Create departments table
 CREATE TABLE department (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
- name VARCHAR(30)
+ name VARCHAR(30) NOT NULL
 );
 
 
 -- Create roles table
-CREATE TABLE IF NOT EXISTS role (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE role (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(30),
     salary DECIMAL(10, 2),
     department_id INT,
@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS role (
 
 
 -- -- Create employees table
-CREATE TABLE IF NOT EXISTS employee (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE employee (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(30),
     last_name VARCHAR(30),
     role_id INT,

@@ -1,7 +1,6 @@
 const dbConnecting = require('../config/connection');
 
 // Function to view all departments
-// Function to view all departments
 async function viewAllDepartments() {
     try {
         const connection = await dbConnecting.getConnection(); // Acquire a connection from the pool
@@ -26,19 +25,24 @@ async function viewAllRoles() {
         console.error('Error viewing roles:', err);
     }
 }
-
-// Function to view all employees
 async function viewAllEmployees() {
     try {
-        const connection = await dbConnecting.getConnection(); // Acquire a connection from the pool
+        const connection = await dbConnecting.getConnection();
+        console.log('Database connection established successfully.');
+
         const [results, fields] = await connection.query('SELECT * FROM employee');
-        console.log('Employees:');
-        console.table(results.map(({ id, first_name, last_name, role_id, manager_id }) => ({ id, first_name, last_name, role_id, manager_id }))); // Display only id, first_name, last_name, role_id, and manager_id columns
-        connection.release(); // Release the connection back to the pool
+        console.log('Employees:',results);
+        console.table(results);
+        
+        connection.release();
+        console.log('Database connection released.');
     } catch (err) {
         console.error('Error viewing employees:', err);
     }
 }
+
+
+
 
 // Export functions
 module.exports = { viewAllDepartments, viewAllRoles, viewAllEmployees };

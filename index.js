@@ -1,5 +1,69 @@
+// const inquirer = require('inquirer');
+// const { viewAllDepartments, viewAllRoles , viewAllEmployees } = require('./views/viewEntity'); // Import viewAllRoles function
+
+// // Function to display the menu
+// function displayMenu() {
+//     console.log(`
+// +-------------------------------------------------+
+// |                                                 |
+// |         Employee Management System              |
+// |                                                 |
+// +-------------------------------------------------+
+// `);
+
+//     inquirer.prompt([
+//         {
+//             type: 'list',
+//             name: 'action',
+//             message: 'What would you like to do?',
+//             choices: [
+//                 'View Departments',
+//                 'View Roles',
+//                 'View Employees',
+//                 'View Employees by Manager',
+//                 'Add Department',
+//                 'Add Role',
+//                 'Add Employee',
+//                 'Update Employee Role',
+//                 'Update Employee Manager',
+//                 'Delete an Employee',
+//                 'Delete Department',
+//                 'Delete a Role',
+//                 'Exit'
+//             ]
+//         }
+//     ]).then(answers => {
+//         switch (answers.action) {
+//             case 'View Departments':
+//                 return viewAllDepartments();
+//             case 'View Roles': // Case for viewing roles
+//                 return viewAllRoles(); // Call viewAllRoles function
+//                 case 'View Employees': // Case for viewing employee
+//                 return viewAllEmployees(); // Call viewAllemployee function
+//             case 'Exit':
+//                 console.log('Exiting...');
+//                 process.exit(0);
+//             default:
+//                 console.log('Invalid action');
+//                 break;
+//         }
+//     }).catch(error => console.error('Error:', error));
+// }
+
+
+// // Main function to start the program
+// function main() {
+//     console.log('Welcome to the Employment Management System!');
+//     displayMenu();
+// }
+
+// // Start the program
+// main();
+
 const inquirer = require('inquirer');
-const { viewAllDepartments, viewAllRoles } = require('./views/viewEntity'); // Import viewAllRoles function
+const { viewAllDepartments, viewAllRoles , viewAllEmployees } = require('./views/viewEntity'); // Import viewAllRoles function
+const { updateEmployeeRole } = require('./views/updateEntity');//to update 
+// const db = require('./config');
 
 // Function to display the menu
 function displayMenu() {
@@ -20,7 +84,6 @@ function displayMenu() {
                 'View Departments',
                 'View Roles',
                 'View Employees',
-                'View Employees by Manager',
                 'Add Department',
                 'Add Role',
                 'Add Employee',
@@ -36,8 +99,26 @@ function displayMenu() {
         switch (answers.action) {
             case 'View Departments':
                 return viewAllDepartments();
-            case 'View Roles': // Case for viewing roles
-                return viewAllRoles(); // Call viewAllRoles function
+            case 'View Roles':
+                return viewAllRoles();
+            case 'View Employees':
+                return viewAllEmployees();
+            case 'Add Department':
+                return addDepartment();
+            case 'Add Role':
+                return addRole();
+            case 'Add Employee':
+                return addEmployee();
+            case 'Update Employee Role':
+                return updateEmployeeRole();
+            case 'Update Employee Manager':
+                return updateEmployeeManager();
+            case 'Delete an Employee':
+                return deleteEmployee();
+            case 'Delete Department':
+                return deleteDepartment();
+            case 'Delete a Role':
+                return deleteRole();
             case 'Exit':
                 console.log('Exiting...');
                 process.exit(0);
@@ -48,7 +129,6 @@ function displayMenu() {
     }).catch(error => console.error('Error:', error));
 }
 
-
 // Main function to start the program
 function main() {
     console.log('Welcome to the Employment Management System!');
@@ -57,49 +137,3 @@ function main() {
 
 // Start the program
 main();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   //     ]).then(answer => {
-    //         // Handle user's selection here
-    //         console.log('You selected:', answer.action);
-    //         if (answer.action === 'Exit') {
-    //             // If the user chooses "Exit", exit the program
-    //             console.log('Exiting...');
-    //         } else {
-    //             // If the user chooses other options, display the menu again
-    //             displayMenu();
-    //         }
-    //     }).catch(error => {
-    //         console.error('Error occurred:', error);
-    //     });
-    // }
