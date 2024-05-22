@@ -1,75 +1,10 @@
-// const inquirer = require('inquirer');
-// const { viewAllDepartments, viewAllRoles , viewAllEmployees } = require('./views/viewEntity'); // Import viewAllRoles function
-
-// // Function to display the menu
-// function displayMenu() {
-//     console.log(`
-// +-------------------------------------------------+
-// |                                                 |
-// |         Employee Management System              |
-// |                                                 |
-// +-------------------------------------------------+
-// `);
-
-//     inquirer.prompt([
-//         {
-//             type: 'list',
-//             name: 'action',
-//             message: 'What would you like to do?',
-//             choices: [
-//                 'View Departments',
-//                 'View Roles',
-//                 'View Employees',
-//                 'View Employees by Manager',
-//                 'Add Department',
-//                 'Add Role',
-//                 'Add Employee',
-//                 'Update Employee Role',
-//                 'Update Employee Manager',
-//                 'Delete an Employee',
-//                 'Delete Department',
-//                 'Delete a Role',
-//                 'Exit'
-//             ]
-//         }
-//     ]).then(answers => {
-//         switch (answers.action) {
-//             case 'View Departments':
-//                 return viewAllDepartments();
-//             case 'View Roles': // Case for viewing roles
-//                 return viewAllRoles(); // Call viewAllRoles function
-//                 case 'View Employees': // Case for viewing employee
-//                 return viewAllEmployees(); // Call viewAllemployee function
-//             case 'Exit':
-//                 console.log('Exiting...');
-//                 process.exit(0);
-//             default:
-//                 console.log('Invalid action');
-//                 break;
-//         }
-//     }).catch(error => console.error('Error:', error));
-// }
-
-
-// // Main function to start the program
-// function main() {
-//     console.log('Welcome to the Employment Management System!');
-//     displayMenu();
-// }
-
-// // Start the program
-// main();
-
 const inquirer = require('inquirer');
-const { viewAllDepartments, viewAllRoles , viewAllEmployees } = require('./views/viewEntity'); // Import viewAllRoles function
-const { addDepartment } = require('./views/addEntity');
-const { addRole } = require('./views/addEntity');
-const { addEmployee } = require('./views/addEntity');
-const { updateEmployeeRole } = require('./views/updateEntity');//to update 
-// const db = require('./config');
+const { viewAllDepartments, viewAllRoles, viewAllEmployees } = require('./views/viewEntity');
+const { addDepartment, addRole, addEmployee } = require('./views/addEntity');
+const { updateEmployeeRole, updateEmployeeManager } = require('./views/updateEntity');
 
 // Function to display the menu
-function displayMenu() {
+async function displayMenu() {
     console.log(`
 +-------------------------------------------------+
 |                                                 |
@@ -78,49 +13,62 @@ function displayMenu() {
 +-------------------------------------------------+
 `);
 
-    inquirer.prompt([
-        {
-            type: 'list',
-            name: 'action',
-            message: 'What would you like to do?',
-            choices: [
-                'View Departments',
-                'View Roles',
-                'View Employees',
-                'Add Department',
-                'Add Role',
-                'Add Employee',
-                'Update Employee Role',
-                'Delete an Employee',
-                'Delete Department',
-                'Delete a Role',
-                'Exit'
-            ]
-        }
-    ]).then(answers => {
+    try {
+        const answers = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'action',
+                message: 'What would you like to do?',
+                choices: [
+                    'View Departments',
+                    'View Roles',
+                    'View Employees',
+                    'Add Department',
+                    'Add Role',
+                    'Add Employee',
+                    'Update Employee Role',
+                    'Delete an Employee',
+                    'Delete Department',
+                    'Delete a Role',
+                    'Exit'
+                ]
+            }
+        ]);
+
         switch (answers.action) {
             case 'View Departments':
-                return viewAllDepartments();
+                await viewAllDepartments();
+                break;
             case 'View Roles':
-                return viewAllRoles();
+                await viewAllRoles();
+                break;
             case 'View Employees':
-                return viewAllEmployees();
+                await viewAllEmployees();
+                break;
             case 'Add Department':
-                return addDepartment();
+                await addDepartment();
+                break;
             case 'Add Role':
-                return addRole();
+                await addRole();
+                break;
             case 'Add Employee':
-                return addEmployee();
+                await addEmployee();
+                break;
             case 'Update Employee Role':
-                return updateEmployeeRole();
+                await updateEmployeeRole();
+                break;
             case 'Update Employee Manager':
-                return updateEmployeeManager();
+                await updateEmployeeManager();
+                break;
             case 'Delete an Employee':
-                return deleteEmployee();
+                await deleteEmployee();
+                break;
             case 'Delete Department':
-                return deleteDepartment();
+                await deleteDepartment();
+                break;
             case 'Delete a Role':
-                return deleteRole();
+                await deleteRole();
+                break;
             case 'Exit':
                 console.log('Exiting...');
                 process.exit(0);
@@ -128,7 +76,12 @@ function displayMenu() {
                 console.log('Invalid action');
                 break;
         }
-    }).catch(error => console.error('Error:', error));
+
+        // After completing an action, prompt the user again
+        await displayMenu();
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 
 // Main function to start the program
@@ -139,3 +92,7 @@ function main() {
 
 // Start the program
 main();
+
+module.exports = {
+    displayMenu
+};
