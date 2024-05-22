@@ -1,4 +1,47 @@
-# 12 SQL: Employee Tracker
+# 12 SQL: Employee Management System
+
+## Video Link.
+
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-purple.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+
+## Table of Contents
+- [Description](#description)
+- [Installation](#installation)
+- [User Story](#user-story)
+- [Acceptance Criteria](#acceptance-criteria)
+- [Usage](#usage)
+- [Tests](#tests)
+- [Questions](#questions)
+- [Task](#task)
+- [License](#license)
+
+
+## Description
+
+The Employee Management System is a command-line application designed to assist businesses in organizing and managing their employees, roles, and departments effectively. It provides functionalities such as viewing all departments, roles, and employees, adding new departments, roles, and employees, updating employee roles, and more. This system aims to streamline the process of managing personnel data, making it easier for business owners and managers to plan, organize, and track their workforce efficiently.
+
+## Usage
+
+
+The Employee Management System is utilized by business owners or managers to streamline the process of managing personnel data. Here's a typical usage scenario:
+
+1. Accessing the System: Users start by accessing the application through the command line interface.
+
+2. Main Menu: Upon launching the application, users are presented with a main menu containing various options such as viewing departments, roles, and employees, adding new entries, updating existing data, and more.
+
+3. Navigation: Users navigate through the menu using arrow keys or by typing in their selection.
+
+4. Viewing Data: Users can choose to view all departments, roles, or employees to get an overview of the current state of their workforce.
+
+5. Adding Entries: Users have the option to add new departments, roles, or employees to the system. They are prompted to enter relevant information, such as department names, role titles, employee details, etc.
+
+6. Updating Data: Users can update existing employee roles or other relevant information as needed.
+
+7. Exiting the System: After completing tasks, users can choose to exit the application.
+
+Overall, the Employee Management System provides a user-friendly interface for managing employee-related data efficiently, helping businesses stay organized and productive.
 
 ## Your Task
 
@@ -38,147 +81,55 @@ WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 ```
 
-## Mock-Up
+## Installation
 
-The following video shows an example of the application being used from the command line:
+To install and set up the Employee Management System, follow these steps:
 
-[![A video thumbnail shows the command-line employee management application with a play button overlaying the view.](./Assets/12-sql-homework-video-thumbnail.png)](https://2u-20.wistia.com/medias/2lnle7xnpk)
+1. Clone the Repository: Start by cloning the repository containing the Employee Management System code from GitHub.
+   git clone <repository-url>
 
-## Getting Started
+2. Install Dependencies: Navigate into the project directory and install the required dependencies using npm.
+    cd EmployeeManagementSystem
+     npm install
 
-This Challenge will require a video submission. Refer to the [Fullstack Blog Video Submission Guide](https://coding-boot-camp.github.io/full-stack/computer-literacy/video-submission-guide) for additional guidance on creating a video.
+     You’ll need to use the [MySQL2 package](https://www.npmjs.com/package/mysql2) to connect to your MySQL database and perform queries, and the [Inquirer package](https://www.npmjs.com/package/inquirer/v/8.2.4) to interact with the user via the command line.
 
-You’ll need to use the [MySQL2 package](https://www.npmjs.com/package/mysql2) to connect to your MySQL database and perform queries, and the [Inquirer package](https://www.npmjs.com/package/inquirer/v/8.2.4) to interact with the user via the command line.
 
-**Important**: You will be committing a file that contains your database credentials. Make sure that your MySQL password is not used for any other personal accounts, because it will be visible on GitHub. In upcoming lessons, you will learn how to better secure this password, or you can start researching npm packages now that could help you.
+ 3. Set Up MySQL Database: Make sure you have MySQL installed on your system. Create a MySQL database and configure the connection details in the project's configuration file (config/connection.js).   
 
-You might also want to make your queries asynchronous. MySQL2 exposes a `.promise()` function on Connections to upgrade an existing non-Promise connection to use Promises. To learn more and make your queries asynchronous, refer to the [npm documentation on MySQL2](https://www.npmjs.com/package/mysql2).
+ 4.  Seed the Database (Optional): If there are sample data provided or seed files, you can use them to populate the database with initial data. npm run seed
 
-Design the database schema as shown in the following image:
+ 5. Start the Application: Once everything is set up, start the application.  
+    node index.js
 
-![Database schema includes tables labeled “employee,” role,” and “department.”](./Assets/12-sql-homework-demo-01.png)
+ 6. Follow Instructions: Follow the prompts and instructions provided by the application to manage departments, roles, and employees.
 
-As the image illustrates, your schema should contain the following three tables:
+     By following these steps, you'll have the Employee Management System up and running on your local machine, ready for use.    
 
-* `department`
+## Tests
 
-    * `id`: `INT PRIMARY KEY`
+For testing the Employee Management System, you can perform manual testing by executing various functionalities and ensuring they behave as expected. Here are some scenarios you can test:
 
-    * `name`: `VARCHAR(30)` to hold department name
+Viewing Departments, Roles, and Employees:
 
-* `role`
+Verify that all departments, roles, and employees are displayed correctly when selecting the corresponding options from the main menu.
+Adding Departments, Roles, and Employees:
 
-    * `id`: `INT PRIMARY KEY`
+Add new departments, roles, and employees and verify that they are successfully added to the database.
+Updating Employee Roles:
 
-    * `title`: `VARCHAR(30)` to hold role title
+Update the role of an existing employee and ensure that the changes reflect correctly in the database.
+Viewing Employees by Manager or Department:
 
-    * `salary`: `DECIMAL` to hold role salary
+If implemented, test the functionality to view employees by manager or department and ensure the results are accurate.
+Deleting Departments, Roles, and Employees:
 
-    * `department_id`: `INT` to hold reference to department role belongs to
+Test the deletion functionality for departments, roles, and employees and verify that the corresponding records are removed from the database.
 
-* `employee`
+## Questions
 
-    * `id`: `INT PRIMARY KEY`
+- **GitHub**: [daisy isibor](https://github.com/daisy isibor)
+- **Email**: daisyisibor9@duck.com
 
-    * `first_name`: `VARCHAR(30)` to hold employee first name
-
-    * `last_name`: `VARCHAR(30)` to hold employee last name
-
-    * `role_id`: `INT` to hold reference to employee role
-
-    * `manager_id`: `INT` to hold reference to another employee that is the manager of the current employee (`null` if the employee has no manager)
-
-You might want to use a separate file that contains functions for performing specific SQL queries you'll need to use. A constructor function or class could be helpful for organizing these. You might also want to include a `seeds.sql` file to pre-populate your database, making the development of individual features much easier.
-
-## Bonus
-
-Try to add some additional functionality to your application, such as the ability to do the following:
-
-* Update employee managers.
-
-* View employees by manager.
-
-* View employees by department.
-
-* Delete departments, roles, and employees.
-
-* View the total utilized budget of a department&mdash;in other words, the combined salaries of all employees in that department.
-
-## Grading Requirements
-
-> **Note**: If a Challenge assignment submission is marked as “0”, it is considered incomplete and will not count towards your graduation requirements. Examples of incomplete submissions include the following:
->
-> * A repository that has no code
->
-> * A repository that includes a unique name but nothing else
->
-> * A repository that includes only a README file but nothing else
->
-> * A repository that only includes starter code
-
-This Challenge is graded based on the following criteria:
-
-### Deliverables: 10%
-
-* Your GitHub repository containing your application code.
-
-### Walkthrough Video: 27%
-
-* A walkthrough video that demonstrates the functionality of the employee tracker must be submitted, and a link to the video should be included in your README file.
-
-* The walkthrough video must show all of the technical acceptance criteria being met.
-
-* The walkthrough video must demonstrate how a user would invoke the application from the command line.
-
-* The walkthrough video must demonstrate a functional menu with the options outlined in the acceptance criteria.
-
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the preceding acceptance criteria plus the following:
-
-    * Uses the [Inquirer package](https://www.npmjs.com/package/inquirer/v/8.2.4).
-
-    * Uses the [MySQL2 package](https://www.npmjs.com/package/mysql2) to connect to a MySQL database.
-
-* Follows the table schema outlined in the Challenge instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains a high-quality README with description and a link to a walkthrough video.
-
-### Application Quality 10%
-
-* The application user experience is intuitive and easy to navigate.
-
-### Bonus
-
-Fulfilling any of the following can add up to 20 points to your grade. Note that the highest grade you can achieve is still 100:
-
-* Application allows users to update employee managers (2 points).
-
-* Application allows users to view employees by manager (2 points).
-
-* Application allows users to view employees by department (2 points).
-
-* Application allows users to delete departments, roles, and employees (2 points for each).
-
-* Application allows users to view the total utilized budget of a department&mdash;in other words, the combined salaries of all employees in that department (8 points).
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* A walkthrough video demonstrating the functionality of the application.
-
-* The URL of the GitHub repository, with a unique name and a README describing the project.
-
-- - -
-© 2024 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+## License
+  This project is licensed under the [GPLv3 License](https://www.gnu.org/licenses/gpl-3.0)
