@@ -110,19 +110,32 @@ To install and set up the Employee Management System, follow these steps:
 
 For testing the Employee Management System, you can perform manual testing by executing various functionalities and ensuring they behave as expected. Here are some scenarios you can test:
 
+![alt text](<images/Menu page.png>)
+
 Viewing Departments, Roles, and Employees:
+
+![alt text](<images/View department.png>)
+![alt text](<images/View Employee.png>)
+![alt text](<images/View Roles.png>)
 
 Verify that all departments, roles, and employees are displayed correctly when selecting the corresponding options from the main menu.
 Adding Departments, Roles, and Employees:
 
+
 Add new departments, roles, and employees and verify that they are successfully added to the database.
 Updating Employee Roles:
+
+![alt text](<images/add .png>)
 
 Update the role of an existing employee and ensure that the changes reflect correctly in the database.
 Viewing Employees by Manager or Department:
 
+![alt text](images/Update.png)
+
 If implemented, test the functionality to view employees by manager or department and ensure the results are accurate.
 Deleting Departments, Roles, and Employees:
+
+![alt text](images/delete.png)
 
 Test the deletion functionality for departments, roles, and employees and verify that the corresponding records are removed from the database.
 
