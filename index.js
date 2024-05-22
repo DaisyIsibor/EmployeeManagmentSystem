@@ -91,7 +91,6 @@ function displayMenu() {
                 'Add Role',
                 'Add Employee',
                 'Update Employee Role',
-                'Update Employee Manager',
                 'Delete an Employee',
                 'Delete Department',
                 'Delete a Role',

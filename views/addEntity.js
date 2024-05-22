@@ -94,45 +94,45 @@ function addDepartment() {
 // }
 
 
-// Function to add a new role
 function addRole() {
+    // Prompting the user to enter role details
     inquirer.prompt([
         {
-            type: 'input',
-            name: 'title',
-            message: 'Enter the title of the role:'
+            type: "input",
+            name: "title",
+            message: "Enter the title of the new role:",
         },
         {
-            type: 'number',
-            name: 'salary',
-            message: 'Enter the salary for the role:'
+            type: "input",
+            name: "salary",
+            message: "Enter the salary of the new role:",
         },
         {
-            type: 'input',
-            name: 'department',
-            message: 'Enter the department name for the role:'
-        }
-    ]).then(answer => {
-        const { title, salary, department } = answer;
-        const departmentQuery = 'SELECT id FROM department WHERE name = ?';
-        db.query(departmentQuery, [department], (error, results) => {
-            if (error) {
-                console.error('Error retrieving department ID:', error);
-                return;
+            type: "input",
+            name: "department",
+            message: "Enter the department name for the new role:",
+        },
+    ])
+    .then((answers) => {
+        // Inserting the new role into the roles table
+        const insertQuery = "INSERT INTO role (title, salary, department_id) VALUES (?, ?, (SELECT id FROM department WHERE name = ?))";
+        db.query(
+            insertQuery,
+            [answers.title, answers.salary, answers.department],
+            (err, result) => {
+                if (err) {
+                    console.error("Error adding role:", err);
+                    return;
+                }
+                console.log(`Added role "${answers.title}" with salary ${answers.salary} to the ${answers.department} department.`);
             }
-            if (results.length === 0) {
-                console.error('Department not found.');
-                return;
-            }
-            const departmentId = results[0].id;
-            addRoleToDatabase(title, salary, departmentId)
-                .then(() => {
-                    console.log(`Role "${title}" added successfully.`);
-                })
-                .catch(error => console.error('Error adding role to database:', error));
-        });
-    }).catch(error => console.error('Error prompting user for role details:', error));
+        );
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+    });
 }
+
 
 
 
@@ -171,6 +171,7 @@ function addRole() {
 //     }).catch(error => console.error('Error:', error));
 // }
 
+
 function addEmployee() {
     inquirer.prompt([
         {
@@ -191,19 +192,24 @@ function addEmployee() {
         {
             type: 'input',
             name: 'managerFirstName',
-            message: 'Enter the manager\'s first name for the employee:'
+            message: "Enter the manager's first name for the employee:"
         },
         {
             type: 'input',
             name: 'managerLastName',
-            message: 'Enter the manager\'s last name for the employee:'
+            message: "Enter the manager's last name for the employee:"
         }
     ]).then(answer => {
         const { firstName, lastName, role, managerFirstName, managerLastName } = answer;
-        const roleQuery = 'SELECT id FROM roles WHERE title = ?';
+        const roleQuery = 'SELECT id FROM role WHERE title = ?';
+        const managerQuery = 'SELECT id FROM employees WHERE first_name = ? AND last_name = ?';
+        console.log('Role Query:', roleQuery, [role]);
+        console.log('Manager Query:', managerQuery, [managerFirstName, managerLastName]);
+
+        // Fetch role ID
         db.query(roleQuery, [role], (error, roleResults) => {
             if (error) {
-                console.error('Error:', error);
+                console.error('Error fetching role ID:', error);
                 return;
             }
             if (roleResults.length === 0) {
@@ -211,10 +217,11 @@ function addEmployee() {
                 return;
             }
             const roleId = roleResults[0].id;
-            const managerQuery = 'SELECT id FROM employee WHERE first_name = ? AND last_name = ?';
+
+            // Fetch manager ID
             db.query(managerQuery, [managerFirstName, managerLastName], (error, managerResults) => {
                 if (error) {
-                    console.error('Error:', error);
+                    console.error('Error fetching manager ID:', error);
                     return;
                 }
                 if (managerResults.length === 0) {
@@ -222,16 +229,25 @@ function addEmployee() {
                     return;
                 }
                 const managerId = managerResults[0].id;
-                addEmployeeToDatabase(firstName, lastName, roleId, managerId)
-                    .then(() => {
-                        console.log(`Employee "${firstName} ${lastName}" added successfully.`);
-                        // Add any necessary logic here
-                    })
-                    .catch(error => console.error('Error adding employee:', error));
+                console.log('Manager ID:', managerId);
+
+                // Now we have both role ID and manager ID, let's insert the employee into the database
+                const addEmployeeQuery = 'INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)';
+                db.query(addEmployeeQuery, [firstName, lastName, roleId, managerId], (error, results) => {
+                    if (error) {
+                        console.error('Error adding employee:', error);
+                        return;
+                    }
+                    console.log(`Employee "${firstName} ${lastName}" added successfully.`);
+                });
             });
         });
     }).catch(error => console.error('Error:', error));
 }
+
+
+
+
 
 module.exports = {
     addDepartment,

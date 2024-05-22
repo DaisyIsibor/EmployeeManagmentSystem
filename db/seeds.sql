@@ -27,6 +27,7 @@ INSERT INTO role (department_id, title, salary) VALUES
 (8, 'Lawyer', 200000),
 (9, 'CEO', 800000);
 
+
 -- Inserting managers
 INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES 
 ('Daisy', 'Isibor', 13, NULL), -- CEO
