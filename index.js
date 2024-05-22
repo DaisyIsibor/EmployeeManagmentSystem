@@ -2,6 +2,8 @@ const inquirer = require('inquirer');
 const { viewAllDepartments, viewAllRoles, viewAllEmployees } = require('./views/viewEntity');
 const { addDepartment, addRole, addEmployee } = require('./views/addEntity');
 const { updateEmployeeRole, updateEmployeeManager } = require('./views/updateEntity');
+const { deleteDepartment, deleteRole, deleteEmployee } = require('./views/deleteEntity');
+
 
 // Function to display the menu
 async function displayMenu() {
