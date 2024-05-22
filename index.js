@@ -62,6 +62,9 @@
 
 const inquirer = require('inquirer');
 const { viewAllDepartments, viewAllRoles , viewAllEmployees } = require('./views/viewEntity'); // Import viewAllRoles function
+const { addDepartment } = require('./views/addEntity');
+const { addRole } = require('./views/addEntity');
+const { addEmployee } = require('./views/addEntity');
 const { updateEmployeeRole } = require('./views/updateEntity');//to update 
 // const db = require('./config');
 

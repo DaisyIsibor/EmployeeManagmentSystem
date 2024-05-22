@@ -3,12 +3,11 @@ CREATE DATABASE employee_management_system;
 
 USE employee_management_system;
 
--- -- Create departments table
+-- Create departments table
 CREATE TABLE department (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
- name VARCHAR(30) NOT NULL
+  name VARCHAR(30) NOT NULL
 );
-
 
 -- Create roles table
 CREATE TABLE role (
@@ -19,25 +18,32 @@ CREATE TABLE role (
     FOREIGN KEY (department_id) REFERENCES department(id)
 );
 
-
-
--- -- Create employees table
-CREATE TABLE employee (
+-- Create employees table
+CREATE TABLE employees (
+   
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(30),
-    last_name VARCHAR(30),
-    role_id INT,
-    manager_id INT,
-    FOREIGN KEY (role_id) REFERENCES role(id),
-    FOREIGN KEY (manager_id) REFERENCES employee(id)
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(30) NOT NULL,
+
+   
+    role_id INT NOT NULL,
+    FOREIGN KEY (role_id)
+    REFERENCES roles(id),
+
+   
+    manager_id INT ,
+    FOREIGN KEY (manager_id)
+    REFERENCES employees(id)
+    ON DELETE SET NULL
 );
 
--- Delete department by ID
-DELETE FROM department WHERE id = departmentId;
--- Delete role by ID
-DELETE FROM role WHERE id = roleId;
--- Delete employee by ID
-DELETE FROM employee WHERE id = employeeId;
+
+-- -- Delete department by ID
+-- DELETE FROM department WHERE id = departmentId;
+-- -- Delete role by ID
+-- DELETE FROM role WHERE id = roleId;
+-- -- Delete employee by ID
+-- DELETE FROM employee WHERE id = employeeId;
 
 
 
